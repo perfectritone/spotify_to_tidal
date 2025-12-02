@@ -21,5 +21,10 @@ dependencies = [
 where = "src"
 include = "spotify_to_tidal*"
 
+[dependency-groups]
+dev = [
+    "pytest-asyncio>=1.3.0",
+]
+
 [project.scripts]
 spotify_to_tidal = "spotify_to_tidal.__main__:main"
