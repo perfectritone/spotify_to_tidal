@@ -19,7 +19,6 @@ import tidalapi
 from .sync import (
     get_playlists_from_spotify,
     get_tracks_from_spotify_playlist,
-    get_tidal_playlists_wrapper,
     pick_tidal_playlist_for_spotify_playlist,
     populate_track_match_cache,
     search_new_tracks_on_tidal,
@@ -37,6 +36,7 @@ from .tidalapi_patch import (
     add_multiple_tracks_to_playlist,
     clear_tidal_playlist,
     get_all_favorites,
+    get_all_playlists,
 )
 from .cache import track_match_cache
 from .type import spotify as t_spotify
@@ -467,7 +467,8 @@ async def import_from_backup(
 
     # Get existing Tidal playlists for matching
     print("\nFetching existing Tidal playlists...")
-    tidal_playlists = get_tidal_playlists_wrapper(tidal_session)
+    tidal_playlist_list = await get_all_playlists(tidal_session.user)
+    tidal_playlists = {playlist.name: playlist for playlist in tidal_playlist_list}
 
     # Sync each playlist
     for playlist_data in backup_data['playlists']:
