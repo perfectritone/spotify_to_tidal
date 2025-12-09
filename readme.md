@@ -37,6 +37,41 @@ or sync just your 'Liked Songs' with:
 spotify_to_tidal --sync-favorites
 ```
 
+You can also sync your saved albums and followed artists:
+
+```bash
+spotify_to_tidal --sync-albums    # sync saved albums
+spotify_to_tidal --sync-artists   # sync followed artists
+```
+
+Backup and Restore
+----
+For users who want to backup their Spotify library locally before migrating, or need to migrate in separate steps:
+
+Export Spotify data to a local file (no Tidal login required):
+
+```bash
+spotify_to_tidal --export backup.json
+```
+
+This exports all your playlists, liked songs, saved albums, and followed artists to a JSON file.
+
+Import from backup to Tidal (no Spotify login required):
+
+```bash
+spotify_to_tidal --import backup.json
+```
+
+You can selectively export/import specific data types:
+
+```bash
+# Export only playlists and favorites (exclude albums and artists)
+spotify_to_tidal --export backup.json --no-sync-albums --no-sync-artists
+
+# Import only favorites and albums from backup
+spotify_to_tidal --import backup.json --sync-favorites --sync-albums --no-sync-artists
+```
+
 See example_config.yml for more configuration options, and `spotify_to_tidal --help` for more options.
 
 ---
